@@ -218,6 +218,8 @@ def login(usuario: UsuarioLogin):
 def delete_usuario(user_id: int):
     db = get_db()
     cursor = db.cursor()
+    cursor.execute("DELETE FROM historial WHERE id_usuario=%s", (user_id,))
+    cursor.execute("DELETE FROM habitos WHERE id_usuario=%s", (user_id,))
     cursor.execute("DELETE FROM usuarios WHERE id=%s", (user_id,))
     db.commit()
     if cursor.rowcount == 0:
